@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课文背景查询</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>📖 课文背景</h1>
+        
+        <!-- 表单：提交到后端根路由，POST方法 -->
+        <form method="POST" class="query-form">
+            <!-- 1. 课文标题输入框 -->
+            <div class="form-group">
+                <label for="title">课文标题：</label>
+                <input type="text" id="title" name="title" placeholder="请输入课文完整标题（如：背影）" required>
+            </div>
+
+            <!-- 2. 复选框：作者简介、写作背景 -->
+            <div class="form-group checkbox-group">
+                <label>查询选项（可多选）：</label>
+                <div class="checkbox-items">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="options" value="作者简介"> 作者简介
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="options" value="写作背景"> 写作背景
+                    </label>
+                </div>
+            </div>
+
+            <!-- 3. 总字数输入框 -->
+            <div class="form-group">
+                <label for="word_count">总字数：</label>
+                <input type="number" id="word_count" name="word_count" placeholder="请输入总字数（如：200）" min="1">
+            </div>
+
+            <!-- 4. 字号单选框（3号-24号，0.5步进） -->
+            <div class="form-group radio-group">
+                <label>选择字号：</label>
+                <div class="radio-scroll">
+                    {% for size in font_sizes %}
+                        <label class="radio-item">
+                            <input type="radio" name="font_size" value="{{ size }}" {% if size == 16.0 %}checked{% endif %}> {{ size }}号
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 5. 行间距输入框 -->
+            <div class="form-group">
+                <label for="line_height">行间距：</label>
+                <input type="number" id="line_height" name="line_height" placeholder="请输入行间距（如：1.5、2）" min="0.5" step="0.1" value="1.5">
+            </div>
+
+            <!-- 6. 搜索按钮 -->
+            <button type="submit" class="search-btn">🔍 搜索查询</button>
+        </form>
+
+        <!-- 提交成功反馈 -->
+        {% if success %}
+            <div class="success-message">✅ 提交成功</div>
+        {% endif %}
+        {% if unwhole %}
+            <div class="unwhole-message">❌ 部分信息未填写完整</div>
+        {% endif %}
+        {% if wait %}
+            <div class="unwhole-message">❌ 操作频繁</div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+flask==2.3.3
+openai==1.35.10
+python-docx==0.8.11
+urllib3==1.26.16
