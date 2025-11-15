@@ -1,4 +1,3 @@
-# bab8d8cdee1f4c41b14f3207ffd6fc96.ANv8Ndml38o65mYn
 from flask import Flask, render_template, request, make_response, send_file
 from openai import OpenAI
 from docx import Document
@@ -168,4 +167,5 @@ def index():
 if __name__ == '__main__':
     # 部署时用0.0.0.0，端口从环境变量获取（本地运行仍用5000）
     port = int(os.getenv("PORT", 5000))
+
     app.run(host='0.0.0.0', port=port, debug=False)  # 部署时关闭debug
